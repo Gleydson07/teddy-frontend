@@ -40,7 +40,7 @@ export default function Home() {
       </div>
       <button
         type="submit"
-        className="w-[521px] h-15 rounded-sm font-bold text-2xl text-white bg-orange-500 cursor-pointer"
+        className="w-[521px] h-15 rounded-sm font-bold text-2xl text-white bg-orange-500"
       >
         Entrar
       </button>
