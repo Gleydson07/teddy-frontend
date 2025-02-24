@@ -1,46 +1,35 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import apiClient from "../../api/clients/backendService";
 import { Card } from "../../components/Card";
-
-interface ClientProps {
-  data: {
-    id: number;
-    name: string;
-    salary: number;
-    companyRevenue: number;
-    isSelected: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
-  pagination: {
-    firstPage: number | null;
-    currentPage: number;
-    previousPage: number | null;
-    nextPage: number | null;
-    lastPage: number | null;
-    itemsPerPage: number;
-    totalItems: number;
-  };
-}
+import { ClientType, Modal } from "../../components/Modal";
+import {
+  ClientProps,
+  findClientsPaginated,
+} from "../../api/requests/findClientsPaginated";
+import { createClient } from "../../api/requests/createClient";
 
 export default function Clients() {
   const [clients, setClients] = useState<ClientProps>();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState<number>(16);
+  const [isOpenCreateClientModal, setIsOpenCreateClientModal] = useState(false);
 
   async function loadClients() {
     try {
-      const response = await apiClient.get("/clients", {
-        params: {
-          itemsPerPage,
-          page:
-            itemsPerPage !== clients?.pagination.itemsPerPage ? 1 : currentPage,
-        },
-      });
+      const response = await findClientsPaginated(
+        itemsPerPage,
+        itemsPerPage !== clients?.pagination.itemsPerPage ? 1 : currentPage
+      );
 
-      if (response.status === 200) {
-        setClients(response.data);
-      }
+      setClients(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function newClient(client: ClientType) {
+    try {
+      await createClient(client);
+      await loadClients();
     } catch (error) {
       console.error(error);
     }
@@ -90,15 +79,18 @@ export default function Clients() {
               name={client.name}
               salary={client.salary}
               companyRevenue={client.companyRevenue}
+              onLoadClients={loadClients}
               onAddClient={() => {}}
               onEditClient={() => {}}
-              onDeleteClient={() => {}}
             />
           ))}
       </div>
 
       <div className="w-full my-4">
-        <button className="rounded-sm border-1 border-orange-500 text-orange-500 py-1 px-4 w-full hover:opacity-80">
+        <button
+          onClick={() => setIsOpenCreateClientModal(true)}
+          className="rounded-sm border-1 border-orange-500 text-orange-500 py-1 px-4 w-full hover:opacity-80"
+        >
           Criar cliente
         </button>
       </div>
@@ -160,6 +152,13 @@ export default function Clients() {
           {clients?.pagination.lastPage}
         </button>
       </div>
+
+      <Modal
+        type="create"
+        isOpen={isOpenCreateClientModal}
+        onClose={() => setIsOpenCreateClientModal(false)}
+        onSubmit={newClient}
+      />
     </div>
   );
 }
