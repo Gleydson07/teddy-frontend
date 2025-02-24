@@ -23,12 +23,14 @@ export interface ClientProps {
 
 export async function findClientsPaginated(
   itemsPerPage: number,
-  page: number
+  page: number,
+  isSelected?: boolean
 ): Promise<ClientProps> {
   const clients = await apiClient.get("/clients", {
     params: {
       itemsPerPage,
       page,
+      isSelected,
     },
   });
 

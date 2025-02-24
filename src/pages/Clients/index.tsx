@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Card } from "../../components/Card";
 import { ClientType, Modal } from "../../components/Modal";
+import teddySvg from "../../assets/teddy.svg";
 import {
   ClientProps,
   findClientsPaginated,
@@ -43,6 +44,31 @@ export default function Clients() {
     (async () => loadClients())();
   }, [itemsPerPage, currentPage]);
 
+  if (!clients?.data.length) {
+    return (
+      <div className="m-auto h-full w-7xl">
+        <div className="flex flex-col w-full h-full justify-center items-center">
+          <img src={teddySvg} alt="logo" width={200} />
+          <div className="w-60 mt-8">
+            <button
+              onClick={() => setIsOpenCreateClientModal(true)}
+              className="rounded-sm border-1 border-orange-500 text-orange-500 py-1 px-4 w-full hover:opacity-80"
+            >
+              Criar cliente
+            </button>
+          </div>
+        </div>
+
+        <Modal
+          type="create"
+          isOpen={isOpenCreateClientModal}
+          onClose={() => setIsOpenCreateClientModal(false)}
+          onSubmit={newClient}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto my-6 w-7xl h-auto flex flex-col px-8">
       <div className="flex w-full justify-between">
@@ -79,9 +105,8 @@ export default function Clients() {
               name={client.name}
               salary={client.salary}
               companyRevenue={client.companyRevenue}
+              isSelected={client.isSelected}
               onLoadClients={loadClients}
-              onAddClient={() => {}}
-              onEditClient={() => {}}
             />
           ))}
       </div>

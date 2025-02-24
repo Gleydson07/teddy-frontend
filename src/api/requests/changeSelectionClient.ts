@@ -15,6 +15,6 @@ export async function changeSelectionClient(
   });
 
   if (clients.status !== 204) {
-    throw new Error("Erro ao editar cliente");
+    throw new Error("Erro ao editar status de seleção do cliente");
   }
 }
