@@ -2,6 +2,27 @@
 
 ![video.gif](doc-files/frontend.gif)
 
+## Próximos passos
+
+### Painel administrativo 
+- Cadastro e Autenticação de usuário        - 1 semana
+- Configuração de acessos                   - 1 semana
+
+ Atividades distribuidas entre dois desenvolvedores de nível pleno, um dedicado ao frontend e outro ao backend.
+
+### Melhorias de qualidade de código
+Clean Code
+A solução implementada possui acoplamento entre Regras de negócio e ORM, além de não seguir os principíos do SOLID.
+A proposta é refatorar a solução, implementando:
+- Classes abstratas para representar os repositórios. Aplicando assim o princípio da inversão de depedências (DIP), que define que módulos de alto nível não devem depender de módulos de baixo nível, mas sim de suas abstrações.
+- Implementação de usecases para isolar regras de negócio das demais camadas. A abordagem está diretamente ligada ao princípio da responsábilidade única (SRP), pois cada usecase possui uma única razão para mudar.
+
+Testes
+- Implementação de testes unitários e end to end nas aplicações backend e frontend.
+
+Documentação
+Apesar de possuir documentações como C4 e ERD, é importante a implementação de Swagger, para a entrega de uma documentação acompanhada de usabilidade.
+
 ## Arquitetura
 
 Frontend em React + Vite para interface com o usuário.
