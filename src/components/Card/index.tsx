@@ -73,7 +73,7 @@ export function Card({
         </p>
         <p
           className="truncate"
-          title={`Empresa: {formatToCurrency(companyRevenue)}`}
+          title={`Empresa: ${formatToCurrency(companyRevenue)}`}
         >
           Empresa: {formatToCurrency(companyRevenue)}
         </p>
