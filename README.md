@@ -1,5 +1,7 @@
 # Executando aplicações
 
+![video.gif](doc-files/frontend.gif)
+
 ## Arquitetura
 
 Frontend em React + Vite para interface com o usuário.
