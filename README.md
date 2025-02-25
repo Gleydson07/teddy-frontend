@@ -12,11 +12,11 @@ TypeORM como ferramenta de Objeto-Relacional.
 
 C4 (Contexto, Containers, Conmponentes e código) - Este modelo atende a camada 2.
 
-![c4-model.png](architecture/c4-model.png)
+![c4-model.png](doc-files/c4-model.png)
 
 DER (Diagrama Entidade Relacional)
 
-![DER.png](architecture/DER.png)
+![DER.png](doc-files/DER.png)
 
 Necessário apenas uma tabela para reepresentar a funcionalidade solicitada.
 
